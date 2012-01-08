@@ -1,7 +1,8 @@
+# pathname, pythonconfing ve yaml gerekli
 require 'pathname'
 require 'pythonconfig'
 require 'yaml'
-# pathname, pythonconfing ve yaml gerekli
+# sunum ile ilgili bölümleri getir
 CONFIG = Config.fetch('presentation', {})
 
 PRESENTATION_DIR = CONFIG.fetch('directory', 'p')
@@ -10,6 +11,7 @@ INDEX_FILE = File.join(PRESENTATION_DIR, 'index.html')
 IMAGE_GEOMETRY = [ 733, 550 ]
 DEPEND_KEYS    = %w(source css js)
 DEPEND_ALWAYS  = %w(media)
+# yapılacak işler ve tanımları
 TASKS = {
     :index   => 'sunumları indeksle',
     :build   => 'sunumları oluştur',
