@@ -4,12 +4,17 @@ require 'pythonconfig'
 require 'yaml'
 # sunum ile ilgili bölümleri getir
 CONFIG = Config.fetch('presentation', {})
-
+# dizini getir
 PRESENTATION_DIR = CONFIG.fetch('directory', 'p')
+# önceden tanımlanmış şablon
 DEFAULT_CONFFILE = CONFIG.fetch('conffile', '_templates/presentation.cfg')
+# içerik dosyası
 INDEX_FILE = File.join(PRESENTATION_DIR, 'index.html')
+# resim boyutu
 IMAGE_GEOMETRY = [ 733, 550 ]
+# bağımlı anahtarlar
 DEPEND_KEYS    = %w(source css js)
+# her zaman bağımlı olanlar
 DEPEND_ALWAYS  = %w(media)
 # yapılacak işler ve tanımları
 TASKS = {
@@ -21,8 +26,9 @@ TASKS = {
     :optim   => 'resimleri iyileştir',
     :default => 'öntanımlı görev',
 }
-
+# sunum
 presentation   = {}
+# etiket
 tag            = {}
 
 class File
