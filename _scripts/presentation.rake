@@ -42,7 +42,7 @@ class File
       [path]
   end
 end
-
+# png uzantılı resim için iyileştirmeler
 def png_comment(file, string)
   require 'chunky_png'
   require 'oily_png'
@@ -61,7 +61,7 @@ def png_optim(file, threshold=40000)
   end
   png_comment(file, 'raked')
 end
-
+# jpg uzantılı resim için iyileştirmeler
 def jpg_optim(file)
   sh "jpegoptim -q -m80 #{file}"
   sh "mogrify -comment 'raked' #{file}"
