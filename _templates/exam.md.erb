@@ -1,3 +1,7 @@
-<%= title %>
+## <%= title %>
+
+<% ques.each_with_index do |q, index| %>
+  <%= index + 1 %> ) <%= q %>
+<% end %>
+
 <%= footer %>
-<%= question %>
