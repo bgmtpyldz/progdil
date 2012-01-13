@@ -14,7 +14,7 @@ def exam
 
     template = ERB.new(File.read("_templates/exam.md.erb")).result(binding)
     File.open("temp.md",w) { |f| f.puts template }
-    sh "markdown2pdf temp.md -o sinav.md"
+    sh "markdown2pdf temp.md -o sinav.pdf"
     rm "temp.md"
   end
 end
