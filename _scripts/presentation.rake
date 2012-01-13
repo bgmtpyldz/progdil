@@ -73,7 +73,7 @@ def optim
   [pngs, jpgs].each do |a|
     a.reject! { |f| %x{identify -format '%c' #{f}} =~ /[Rr]aked/ }
   end
-
+# resim boyutlarını düzenle
   (pngs + jpgs).each do |f|
     w, h = %x{identify -format '%[fx:w] %[fx:h]' #{f}}.split.map { |e| e.to_i }
     size, i = [w, h].each_with_index.max
@@ -95,7 +95,7 @@ def optim
 end
 
 default_conffile = File.expand_path(DEFAULT_CONFFILE)
-
+# dizini kullanarak dosya listesindeki görevleri yap
 FileList[File.join(PRESENTATION_DIR, "[^_.]*")].each do |dir|
   next unless File.directory?(dir)
   chdir dir do
@@ -130,16 +130,16 @@ FileList[File.join(PRESENTATION_DIR, "[^_.]*")].each do |dir|
     basename = base + '.html'
     thumbnail = File.to_herepath(base + '.png')
     target = File.to_herepath(basename)
-
+# tüm bağımlılık dosyaları burda
     deps = []
     (DEPEND_ALWAYS + landslide.values_at(*DEPEND_KEYS)).compact.each do |v|
       deps += v.split.select { |p| File.exists?(p) }.map { |p| File.to_filelist(p) }.flatten
     end
 
-    deps.map! { |e| File.to_herepath(e) }
+    deps.map! { |e| File.to_herepath(e) } # dosyaya göre bağımlılık haritası
     deps.delete(target)
     deps.delete(thumbnail)
-
+# sunum etiketleri- görevleri
     tags = []
 
    presentation[dir] = {
@@ -164,7 +164,7 @@ presentation.each do |k, v|
 end
 
 tasktab = Hash[*TASKS.map { |k, v| [k, { :desc => v, :tasks => [] }] }.flatten]
-
+# sunumdaki görevleri yap
 presentation.each do |presentation, data|
   ns = namespace presentation do
     file data[:target] => data[:deps] do |t|
@@ -224,7 +224,7 @@ presentation.each do |presentation, data|
     tasktab[name][:tasks] << t
   end
 end
-
+# isim uzayındaki görevleri yap
 namespace :p do
   tasktab.each do |name, info|
     desc info[:desc]
